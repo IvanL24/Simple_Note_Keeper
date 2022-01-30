@@ -25,22 +25,28 @@ public class NoteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String query = request.getQueryString();
+        String path = getServletContext().getRealPath("/WEB-INF/note.txt");
+        
+        // display note
+
+        BufferedReader br = new BufferedReader(new FileReader(new File(path)));
+
+        String title = br.readLine();
+        String contents = br.readLine();
+
+        Note note = new Note(title, contents);
+
+        request.setAttribute("note", note);
+
         
         if(query != null && query.contains("edit")){
+            
+            
+            
             //display the edit form
             getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);
         } else {
-            // display note
-            String path = getServletContext().getRealPath("/WEB-INF/note.txt");
-        
-            BufferedReader br = new BufferedReader(new FileReader(new File(path)));
 
-            String title = br.readLine();
-            String contents = br.readLine();
-
-            Note note = new Note(title, contents);
-
-            request.setAttribute("note", note);
 
             getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
 
