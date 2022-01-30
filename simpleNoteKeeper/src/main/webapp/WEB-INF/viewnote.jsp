@@ -11,8 +11,11 @@
         <h2>View Note</h2>
         
         <p><strong>Title:</strong> <c:out value="${note.title}" /></p>
-        <p><strong>Content:</strong></p>
-        <p><c:out value="${note.contents}" /></p>
+        <p>
+            <strong>Content:</strong>
+            <br>
+            <c:out value="${note.contents}" />
+        </p>
         
         <a href="note?edit">Edit</a>
     </body>
